@@ -33,7 +33,7 @@ public class Articoli
 {
 	@Id
 	@Column(name = "codart")
-	private String codArt;
+	private Integer codArt;
 	
 	@Column(name = "descrizione")
 	private String descrizione;	

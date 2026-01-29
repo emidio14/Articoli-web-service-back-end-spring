@@ -21,7 +21,6 @@ public class Ingredienti
 {	
 	@Id
 	@Column(name = "CODART")
-	@SuppressWarnings("unused")
 	private String codArt;
 	
 	@Column(name = "INFO")
@@ -31,7 +30,5 @@ public class Ingredienti
 	@PrimaryKeyJoinColumn
 	private Articoli articolo;
 
-    public Ingredienti() {
-    }
-	
+    
 }

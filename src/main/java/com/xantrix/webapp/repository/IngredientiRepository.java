@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.xantrix.webapp.entities.Articoli;
+import com.xantrix.webapp.entities.Ingredienti;
 
 @Repository
-public class ArticoliRepository implements IRepository<Articoli>{
+public class IngredientiRepository implements IRepository<Ingredienti>{
 
 	@Override
 	public Articoli getById(int id) {
@@ -38,5 +39,5 @@ public class ArticoliRepository implements IRepository<Articoli>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 }

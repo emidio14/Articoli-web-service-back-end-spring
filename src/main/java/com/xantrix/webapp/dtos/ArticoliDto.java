@@ -9,9 +9,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ArticoliDto 
+public abstract class ArticoliDto 
 {
-	private String codart;
+	private Integer codart;
 	private String descrizione;	
 	private String um;
 	private String codstat;
@@ -25,4 +25,5 @@ public class ArticoliDto
 	private IngredientiDto ingredienti;
 	private CategoriaDto famAssort;
 	private IvaDto iva;
+	
 }
