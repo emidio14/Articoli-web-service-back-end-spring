@@ -8,36 +8,25 @@ import com.xantrix.webapp.entities.Articoli;
 import com.xantrix.webapp.entities.Ingredienti;
 
 @Repository
-public class IngredientiRepository implements IRepository<Ingredienti>{
+public class IngredientiRepository implements IRepositoryReadOnly<Ingredienti>{
 
 	@Override
-	public Articoli getById(int id) {
+	public List<Ingredienti> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Articoli> getAll() {
+	public Articoli getById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean Insert(Articoli obj) {
+	public Ingredienti getById(int id) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	@Override
-	public boolean Update(Articoli obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean Delete(int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+	
 }

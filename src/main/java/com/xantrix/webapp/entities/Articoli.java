@@ -1,6 +1,6 @@
 package com.xantrix.webapp.entities;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +33,7 @@ public class Articoli
 {
 	@Id
 	@Column(name = "codart")
-	private Integer codArt;
+	private String codArt;
 	
 	@Column(name = "descrizione")
 	private String descrizione;	

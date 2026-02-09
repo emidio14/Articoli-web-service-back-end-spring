@@ -25,7 +25,7 @@ public class FamAssort
 {
 	@Id
 	@Column(name = "ID")
-	private int id;
+	private String id;
 	
 	@Column(name = "DESCRIZIONE")
 	private String descrizione;

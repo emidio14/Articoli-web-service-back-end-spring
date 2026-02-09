@@ -25,13 +25,13 @@ public class Iva
 {
 	@Id
 	@Column(name = "IDIVA")
-	private int idIva;
+	private String idIva;
 	
 	@Column(name = "DESCRIZIONE")
 	private String descrizione;
 	
 	@Column(name = "ALIQUOTA")
-	private int aliquota;
+	private String aliquota;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "iva")
 	private Set<Articoli> articoli = new HashSet<>();

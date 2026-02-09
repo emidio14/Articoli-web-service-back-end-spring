@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +16,7 @@ import lombok.extern.java.Log;
 
 @Log
 @RestController
-@RequestMapping("api/articoli")
+@RequestMapping("api/articoli/")
 @CrossOrigin("http://localhost:8080/")
 public class ArticoliController {
 	
@@ -29,21 +27,13 @@ public class ArticoliController {
 		this.service = service;
 	}
 	
-	@GetMapping()
-	public List<Articoli> listaArticoli(){
-		ArticoliService art = new ArticoliService();
-		return art.getAllArticoli();
+	@GetMapping
+	public List<Articoli> articoliListaService(){
+		return service.articoliListaService();
 	}
-	
 	@GetMapping("{id}")
-	public Articoli detailArticoli(@PathVariable int id) {
-		ArticoliService art = new ArticoliService();
-		return art.getArticoliById(id);
-	}
-	
-	@PostMapping()
-	public Articoli articoliInsert(@RequestBody Articoli art) {
-		return service.addArticoli(art);
+	public Articoli artDetailsService(@PathVariable String id) {
+		return service.artDetailsService(id);
 	}
 	
 }

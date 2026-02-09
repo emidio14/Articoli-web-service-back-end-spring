@@ -32,4 +32,5 @@ public class Barcode
 	@JoinColumn(name = "codart", referencedColumnName = "codart")
 	@JsonBackReference
 	private Articoli articolo;
+
 }
