@@ -22,5 +22,9 @@ public class ArticoliService {
 	public Articoli artDetailsService(String id) {
 		return repository.getById(id);
 	}
+	
+	public boolean artInsertService(Articoli art) {
+		return repository.Insert(art);
+	}
 }
 

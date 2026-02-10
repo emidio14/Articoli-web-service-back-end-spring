@@ -3,6 +3,8 @@ package com.xantrix.webapp.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,16 +26,17 @@ import lombok.Setter;
 public class Iva 
 {
 	@Id
-	@Column(name = "IDIVA")
+	@Column(name = "idiva")
 	private String idIva;
 	
-	@Column(name = "DESCRIZIONE")
+	@Column(name = "descrizione")
 	private String descrizione;
 	
-	@Column(name = "ALIQUOTA")
+	@Column(name = "aliquota")
 	private String aliquota;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "iva")
+	@JsonIgnoreProperties("iva")
 	private Set<Articoli> articoli = new HashSet<>();
 	
 }

@@ -1,29 +1,29 @@
 package com.xantrix.webapp.dtos;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.xantrix.webapp.entities.Ingredienti;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class ArticoliDto 
+public class ArticoliDto 
 {
-	private Integer codart;
+	private String codArt;
 	private String descrizione;	
 	private String um;
-	private String codstat;
-	private int pzcart;
-	private double peso;
-	private String status;
-	private Date data;
-	private double prezzo = 0;
-	
-	private Set<BarcodeDto> barcode = new HashSet<>();
-	private IngredientiDto ingredienti;
-	private CategoriaDto famAssort;
+	private String codStat;
+	private int pzCart = 0;
+	private double pesoNetto = 0;
+	private String idStatoArt;
+	private Date dataCreaz;
+	private BarcodeDto barcode;
+	private Set<IngredientiDto> ingredienti = new HashSet<>();
 	private IvaDto iva;
+	private CategoriaDto famAssort;
 	
 }

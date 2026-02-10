@@ -40,8 +40,8 @@ public class ModelMapperConfig
 	{
 	      protected void configure() 
 	      {
-	         map().setData(source.getDataCreaz());
-	         map().setStatus(source.getIdStatoArt());
+	         map().setDataCreaz(source.getDataCreaz());
+	         map().setIdStatoArt(source.getIdStatoArt());
 	      }
 	};
 	

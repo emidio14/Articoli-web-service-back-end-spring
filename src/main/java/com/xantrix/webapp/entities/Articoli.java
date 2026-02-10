@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +16,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +25,6 @@ import lombok.Setter;
 @Table(name = "ARTICOLI")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Articoli 
 {
@@ -44,8 +41,8 @@ public class Articoli
 	@Column(name = "codstat")
 	private String codStat;
 	
-	@Column(name = "pzcart")
-	private Integer pzCart;
+	@Column(name = "pzcart", nullable = false)
+	private int pzCart;
 	
 	@Column(name = "pesonetto")
 	private double pesoNetto;
@@ -57,19 +54,18 @@ public class Articoli
 	@Column(name = "datacreazione")
 	private Date dataCreaz;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
-	@JsonManagedReference
-	private Set<Barcode> barcode = new HashSet<>();
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
+	private Barcode barcode;
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
-	private Ingredienti ingredienti;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
+	private Set<Ingredienti> ingredienti = new HashSet<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "idiva",  referencedColumnName = "idiva")
 	private Iva iva;
 	
 	@ManyToOne
-	@JoinColumn(name = "idfamass", referencedColumnName = "id")
+	@JoinColumn(name = "idfamass", referencedColumnName = "id", nullable = false)
 	private FamAssort famAssort;
 	
 }

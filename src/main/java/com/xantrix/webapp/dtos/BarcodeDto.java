@@ -8,6 +8,5 @@ import lombok.Setter;
 public class BarcodeDto
 {
 	private String barcode;
-	
 	private String idTipoArt;
 }
