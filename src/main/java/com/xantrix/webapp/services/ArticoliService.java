@@ -23,8 +23,12 @@ public class ArticoliService {
 		return repository.getById(id);
 	}
 	
-	public boolean artInsertService(Articoli art) {
-		return repository.Insert(art);
+	public boolean artUpdateService(String id) {
+		return repository.Update(id);
+	}
+	
+	public boolean artDeleteService(String id) {
+		return repository.Delete(id);
 	}
 }
 

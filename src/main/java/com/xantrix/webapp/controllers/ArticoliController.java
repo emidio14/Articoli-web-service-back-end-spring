@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,8 +37,13 @@ public class ArticoliController {
 	}
 	
 	@GetMapping("{id}")
-	public Articoli artDetailsService(@PathVariable String id) {
-		return service.artDetailsService(id);
+	public ResponseEntity artDetailsService(@PathVariable String id) {
+		Articoli art = service.artDetailsService(id);
+		
+		if(art == null)
+			return ResponseEntity.notFound().build();
+		else
+			return ResponseEntity.ok().build();
 	}
 	
 	@PostMapping
@@ -50,4 +56,15 @@ public class ArticoliController {
 		else
 			return ResponseEntity.unprocessableEntity().build();
 	}
+	
+	@DeleteMapping
+	public ResponseEntity artDelete(@PathVariable String id) {
+		
+		if(service.artDeleteService(id))
+			return ResponseEntity.ok().build();
+		
+		return ResponseEntity.notFound().build();
+		
+	}
+	
 }

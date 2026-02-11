@@ -129,13 +129,34 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 	}
 
 	@Override
-	public boolean Update(Articoli obj) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean Delete(String id) {
+		
+			boolean result = false;
+			
+			try {
+				Connection conn = ConnectionSingleton.getInstance().getConnection();
+				
+				String query = "DELETE FROM articoli WHERE codart = ?";
+				
+				PreparedStatement ps = conn.prepareStatement(query);				
+				ps.setString(1, id);
+				
+				int affRows = ps.executeUpdate();
+				
+				if(affRows > 0)
+					result = true;
+				
+				conn.close();
+				
+			}catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			return result;
+		}
+
 
 	@Override
-	public boolean Delete(String id) {
+	public boolean Update(Articoli obj) {
 		// TODO Auto-generated method stub
 		return false;
 	}
