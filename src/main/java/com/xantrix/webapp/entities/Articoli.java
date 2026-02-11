@@ -66,5 +66,5 @@ public class Articoli
 	@ManyToOne
 	@JoinColumn(name = "idfamass", referencedColumnName = "id", nullable = false)
 	private FamAssort famAssort;
-	
+
 }
