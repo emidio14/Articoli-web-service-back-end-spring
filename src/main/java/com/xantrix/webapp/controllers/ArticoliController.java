@@ -43,13 +43,6 @@ public class ArticoliController {
 	@PostMapping
 	public ResponseEntity artInsert(@RequestBody Articoli art) {
 		
-		// --- INIZIO DEBUG ---
-	    System.out.println("======= DEBUG POST ARTICOLI =======");
-	    System.out.println("CodArt: " + art.getCodArt());
-	    System.out.println("Descrizione: " + art.getDescrizione());
-	    System.out.println("Stato (idStatoArt): " + art.getIdStatoArt());
-	    System.out.println("Stato (idStatoArt): " + art.getFamAssort());
-		
 		boolean insertResult = service.artInsertService(art);
 		
 		if(insertResult)

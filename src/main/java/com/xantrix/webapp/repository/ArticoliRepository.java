@@ -135,15 +135,9 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 	}
 
 	@Override
-	public boolean Delete(int id) {
+	public boolean Delete(String id) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	@Override
-	public Articoli getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
