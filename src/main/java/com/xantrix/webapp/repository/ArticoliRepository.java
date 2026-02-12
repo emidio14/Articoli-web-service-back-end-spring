@@ -85,7 +85,7 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		System.out.println("ritorno result get: " + art);
+
 		return art;
 	}
 
