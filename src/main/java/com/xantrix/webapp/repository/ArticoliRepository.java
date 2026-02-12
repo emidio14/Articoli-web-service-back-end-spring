@@ -74,7 +74,7 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 				art.setDataCreaz(rs.getDate("datacreazione"));
 				art.setDescrizione(rs.getString("descrizione"));
 				art.setIdStatoArt(rs.getString("idstatoart"));
-				art.setPesoNetto(rs.getInt("pesonetto"));
+				art.setPesoNetto(rs.getDouble("pesonetto"));
 				art.setPzCart(rs.getInt("pzcart"));
 				art.setUm(rs.getString("um"));
 
@@ -153,64 +153,51 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 
 	@Override
 	public boolean Update(Articoli obj) {
+	    boolean result = false;
+	    try {
+	        Connection conn = ConnectionSingleton.getInstance().getConnection();
+	        String id = obj.getCodArt();
+	        Articoli art = this.getById(id); // Recupero i dati attuali dal DB
 
-		boolean result = false;
+	        if (art != null) {
 
-		try {
-			Connection conn = ConnectionSingleton.getInstance().getConnection();
+	            art.setCodStat(obj.getCodStat() == null ? art.getCodStat() : obj.getCodStat());
+	            art.setDataCreaz(obj.getDataCreaz() == null ? art.getDataCreaz() : obj.getDataCreaz());
+	            art.setDescrizione(obj.getDescrizione() == null ? art.getDescrizione() : obj.getDescrizione());
+	            art.setIdStatoArt(obj.getIdStatoArt() == null ? art.getIdStatoArt() : obj.getIdStatoArt());
+	            art.setPesoNetto(obj.getPesoNetto() == 0.000 ? art.getPesoNetto() : obj.getPesoNetto()); 
+	            art.setPzCart(obj.getPzCart() == 0 ? art.getPzCart() : obj.getPzCart());
+	            art.setUm(obj.getUm() == null ? art.getUm() : obj.getUm());
+	            art.setFamAssort(obj.getFamAssort() == null ? art.getFamAssort() : obj.getFamAssort());
+	            art.setIva(obj.getIva() == null ? art.getIva() : obj.getIva());
 
-			String id = obj.getCodArt();
-			Articoli art = this.getById(id);
+	            String query = "UPDATE articoli SET codstat = ?, datacreazione = ?, descrizione = ?, "
+	                         + "idstatoart = ?, pesonetto = ?, pzcart = ?, um = ?, idfamass = ?, idiva = ? "
+	                         + "WHERE codart = ? ";
 
-			if (art != null) {
-				
-				art.setCodStat(obj.getCodStat());
-				art.setDataCreaz(obj.getDataCreaz());
-				art.setDescrizione(obj.getDescrizione());
-				art.setIdStatoArt(obj.getIdStatoArt());
-				art.setPesoNetto(obj.getPesoNetto());
-				art.setPzCart(obj.getPzCart());
-				art.setUm(obj.getUm());
-				art.setFamAssort(obj.getFamAssort());
-				art.setIva(obj.getIva());
+	            PreparedStatement ps = conn.prepareStatement(query);
+	            ps.setString(1, art.getCodStat());
+	            ps.setDate(2, art.getDataCreaz());
+	            ps.setString(3, art.getDescrizione());
+	            ps.setString(4, art.getIdStatoArt());
+	            ps.setDouble(5, art.getPesoNetto());
+	            
+	            System.out.println("PesoNetto: " + art.getPesoNetto());
+	            
+	            ps.setInt(6, art.getPzCart());
+	            ps.setString(7, art.getUm());
+	            ps.setString(8, (art.getFamAssort() != null) ? art.getFamAssort().getId() : null);
+	            ps.setString(9, (art.getIva() != null) ? art.getIva().getIdIva() : "0");           
+	            ps.setString(10, art.getCodArt());
 
-			}
-
-			String query = "UPDATE articoli SET "
-					+ "codstat = ?, "
-					+ "datacreazione = ?, "
-					+ "descrizione = ?, "
-					+ "idstatoart = ?, "
-					+ "pesonetto = ?, "
-					+ "pzcart = ?, "
-					+ "um = ?, "
-					+ "idfamass = ?, "
-					+ "idiva = ? "
-					+ "WHERE codart = ? ";
-
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, obj.getCodStat());
-			ps.setDate(2, obj.getDataCreaz());
-			ps.setString(3, obj.getDescrizione());
-			ps.setString(4, obj.getIdStatoArt());
-			ps.setDouble(5, obj.getPesoNetto());
-			ps.setInt(6, obj.getPzCart());
-			ps.setString(7, obj.getUm());
-			ps.setString(8, obj.getFamAssort().getId());
-			ps.setString(9, obj.getIva().getIdIva());
-			ps.setString(10, obj.getCodArt());
-
-			int affRows = ps.executeUpdate();
-
-			if (affRows > 0)
-				result = true;
-
-			conn.close();
-
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return result;
+	            int affRows = ps.executeUpdate();
+	            if (affRows > 0) result = true;
+	        }
+	        conn.close();
+	    } catch (SQLException e) {
+	        System.out.println("Errore Update: " + e.getMessage());
+	    }
+	    return result;
 	}
 
 }
