@@ -20,13 +20,5 @@ public class IngredientiRepository implements IRepositoryReadOnly<Ingredienti>{
 	public Articoli getById(String id) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public Ingredienti getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
+	}	
 }
