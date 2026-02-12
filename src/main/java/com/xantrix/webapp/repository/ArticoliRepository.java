@@ -7,12 +7,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Repository;
 
 import com.xantrix.webapp.entities.Articoli;
 
 @Repository
 public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepositoryWrite<Articoli> {
+	
+	private final DataSource ds;
+	
+	public ArticoliRepository(DataSource datasource) {
+		this.ds = datasource;
+	}
 
 	@Override
 	public List<Articoli> getAll() {
@@ -20,7 +28,8 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 		List<Articoli> listaArticoli = new ArrayList<Articoli>();
 
 		try {
-			Connection conn = ConnectionSingleton.getInstance().getConnection();
+
+			Connection conn = ds.getConnection();
 
 			String query = "SELECT codart, codstat, datacreazione, descrizione, idstatoart, pesonetto, pzcart, um, idfamass, idiva FROM articoli";
 			PreparedStatement ps = conn.prepareStatement(query);
@@ -58,7 +67,7 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 
 		try {
 			
-			Connection conn = ConnectionSingleton.getInstance().getConnection();
+			Connection conn = ds.getConnection();
 
 			String query = "SELECT codart, codstat, datacreazione, descrizione, idstatoart, pesonetto, pzcart, um, idfamass, idiva "
 					+ "FROM articoli WHERE codart = ?";
@@ -94,7 +103,8 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 		boolean result = false;
 
 		try {
-			Connection conn = ConnectionSingleton.getInstance().getConnection();
+			
+			Connection conn = ds.getConnection();
 
 			String query = "INSERT INTO articoli (codart, codstat, datacreazione, descrizione, idstatoart, pesonetto, pzcart, um, idfamass, idiva)"
 					+ " VALUES" + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -131,8 +141,9 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 		boolean result = false;
 
 		try {
-			Connection conn = ConnectionSingleton.getInstance().getConnection();
 
+			Connection conn = ds.getConnection();
+			
 			String query = "DELETE FROM articoli WHERE codart = ?";
 
 			PreparedStatement ps = conn.prepareStatement(query);
@@ -155,7 +166,9 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 	public boolean Update(Articoli obj) {
 	    boolean result = false;
 	    try {
-	        Connection conn = ConnectionSingleton.getInstance().getConnection();
+	    	
+	    	Connection conn = ds.getConnection();
+
 	        String id = obj.getCodArt();
 	        Articoli art = this.getById(id); // Recupero i dati attuali dal DB
 
