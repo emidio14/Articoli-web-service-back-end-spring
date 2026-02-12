@@ -174,7 +174,6 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 				art.setFamAssort(obj.getFamAssort());
 				art.setIva(obj.getIva());
 
-
 			}
 
 			String query = "UPDATE articoli SET "
@@ -190,16 +189,16 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 					+ "WHERE codart = ? ";
 
 			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, obj.getCodArt());
-			ps.setString(2, obj.getDescrizione());
-			ps.setString(3, obj.getUm());
-			ps.setString(4, obj.getCodStat());
-			ps.setInt(5, obj.getPzCart());
-			ps.setDouble(6, obj.getPesoNetto());
-			ps.setString(7, obj.getIdStatoArt());
-			ps.setDate(8, obj.getDataCreaz());
+			ps.setString(1, obj.getCodStat());
+			ps.setDate(2, obj.getDataCreaz());
+			ps.setString(3, obj.getDescrizione());
+			ps.setString(4, obj.getIdStatoArt());
+			ps.setDouble(5, obj.getPesoNetto());
+			ps.setInt(6, obj.getPzCart());
+			ps.setString(7, obj.getUm());
+			ps.setString(8, obj.getFamAssort().getId());
 			ps.setString(9, obj.getIva().getIdIva());
-			ps.setString(10, obj.getFamAssort().getId());
+			ps.setString(10, obj.getCodArt());
 
 			int affRows = ps.executeUpdate();
 

@@ -73,7 +73,7 @@ public class ArticoliController {
 	@PutMapping("{id}")
 	public ResponseEntity artUpdate(@PathVariable String id, @RequestBody Articoli art) {
 		
-		if(art != null)
+		if(id != "0")
 			art.setCodArt(id);
 		
 			if(service.artUpdateService(art))
