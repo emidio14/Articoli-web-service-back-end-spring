@@ -44,7 +44,7 @@ public class ArticoliController {
 		if(art == null)
 			return ResponseEntity.notFound().build();
 		else
-			return ResponseEntity.ok().build();
+			return ResponseEntity.ok(art);
 	}
 	
 	@PostMapping

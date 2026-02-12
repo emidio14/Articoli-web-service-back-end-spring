@@ -53,10 +53,11 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 
 	@Override
 	public Articoli getById(String id) {
+		
 		Articoli art = null;
 
 		try {
-
+			
 			Connection conn = ConnectionSingleton.getInstance().getConnection();
 
 			String query = "SELECT codart, codstat, datacreazione, descrizione, idstatoart, pesonetto, pzcart, um, idfamass, idiva "
@@ -84,7 +85,7 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		}
-
+		System.out.println("ritorno result get: " + art);
 		return art;
 	}
 
