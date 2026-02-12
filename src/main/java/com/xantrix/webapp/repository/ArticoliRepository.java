@@ -170,8 +170,8 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 				art.setPesoNetto(obj.getPesoNetto());
 				art.setPzCart(obj.getPzCart());
 				art.setUm(obj.getUm());
-				art.setIdfamass(obj.getFamAssort().getId());
-				art.setIva(obj.getIva().getIdIva());
+				art.setFamAssort(obj.getFamAssort());
+				art.setIva(obj.getIva());
 
 
 			}

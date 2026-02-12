@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,18 +54,34 @@ public class ArticoliController {
 		
 		if(insertResult)
 			return ResponseEntity.ok().build();
-		else
-			return ResponseEntity.unprocessableEntity().build();
+
+		return ResponseEntity.unprocessableEntity().build();
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("{id}")
 	public ResponseEntity artDelete(@PathVariable String id) {
 		
-		if(service.artDeleteService(id))
+		boolean deleteResult = service.artDeleteService(id);
+		
+		if(deleteResult)
 			return ResponseEntity.ok().build();
 		
 		return ResponseEntity.notFound().build();
 		
 	}
+	
+	@PutMapping("{id}")
+	public ResponseEntity artUpdate(@PathVariable String id, @RequestBody Articoli art) {
+		
+		if(art != null)
+			art.setCodArt(id);
+		
+			if(service.artUpdateService(art))
+				return ResponseEntity.ok().build();
+			
+		return ResponseEntity.badRequest().build();
+		
+	}
+	
 	
 }
