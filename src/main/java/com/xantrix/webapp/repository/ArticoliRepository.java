@@ -42,8 +42,8 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 		             + "FROM articoli a "
 		             + "INNER JOIN famassort f ON a.idfamass = f.id "
 		             + "INNER JOIN iva on iva.idiva = a.idiva "
-					 + "RIGHT JOIN barcode b ON b.codart = a.codart "
-					 + "RIGHT JOIN ingredienti i ON i.articolo_codart = a.codart ";
+					 + "LEFT JOIN barcode b ON b.codart = a.codart "
+					 + "LEFT JOIN ingredienti i ON i.articolo_codart = a.codart ";
 			
 			PreparedStatement ps = conn.prepareStatement(query);
 
@@ -103,8 +103,16 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 			
 			Connection conn = ds.getConnection();
 
-			String query = "SELECT codart, codstat, datacreazione, descrizione, idstatoart, pesonetto, pzcart, um, idfamass, idiva "
-					+ "FROM articoli WHERE codart = ?";
+			String query = "SELECT a.codart AS codart_art, a.codstat, a.datacreazione, a.descrizione AS descr_art, "
+		             + "a.idstatoart, a.pesonetto, a.pzcart, a.um, a.idfamass, a.idiva, b.codart AS codart_bar, b.barcode AS barcode_b, "
+		             + "f.descrizione AS descr_fam, iva.descrizione AS descr_iva, aliquota, b.idtipoart as bar_idtipoart, i.codart AS codart_ingr, "
+		             + "i.info AS info_ingr "
+		             + "FROM articoli a "
+		             + "INNER JOIN famassort f ON a.idfamass = f.id "
+		             + "INNER JOIN iva on iva.idiva = a.idiva "
+					 + "LEFT JOIN barcode b ON b.codart = a.codart "
+					 + "LEFT JOIN ingredienti i ON i.articolo_codart = a.codart "
+					 + "WHERE a.codart = ?";
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, id);
 
@@ -112,14 +120,35 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 
 			while (rs.next()) {
 				art = new Articoli();
-				art.setCodArt(rs.getString("codart"));
+				art.setCodArt(rs.getString("codart_art"));
 				art.setCodStat(rs.getString("codstat"));
 				art.setDataCreaz(rs.getDate("datacreazione"));
-				art.setDescrizione(rs.getString("descrizione"));
+				art.setDescrizione(rs.getString("descr_art"));
 				art.setIdStatoArt(rs.getString("idstatoart"));
 				art.setPesoNetto(rs.getDouble("pesonetto"));
 				art.setPzCart(rs.getInt("pzcart"));
 				art.setUm(rs.getString("um"));
+				
+				FamAssort famass = new FamAssort();
+				famass.setId(rs.getString("idfamass"));
+				famass.setDescrizione(rs.getString("descr_fam"));
+				art.setFamAssort(famass);
+				
+				Iva iva = new Iva();
+				iva.setIdIva(rs.getString("idiva")); 
+				iva.setDescrizione(rs.getString("descr_iva"));
+				iva.setAliquota(rs.getString("aliquota"));
+				art.setIva(iva);
+				
+				Barcode barcode = new Barcode();
+				barcode.setBarcode(rs.getString("barcode_b"));
+				barcode.setIdTipoArt(rs.getString("bar_idtipoart"));
+				art.setBarcode(barcode);
+				
+				Ingredienti ingredienti = new Ingredienti();
+				ingredienti.setCodArt(rs.getString("codart_ingr"));
+				ingredienti.setInfo(rs.getString("info_ingr"));
+				art.getIngredienti().add(ingredienti);
 
 			}
 
