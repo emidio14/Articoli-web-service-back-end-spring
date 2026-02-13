@@ -1,5 +1,6 @@
 package com.xantrix.webapp.entities;
  
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -31,6 +32,7 @@ public class Ingredienti
 	@ManyToOne
 	@JsonIgnoreProperties("ingredienti")
 	@PrimaryKeyJoinColumn
+	@JsonIgnore
 	private Articoli articolo;
 
     

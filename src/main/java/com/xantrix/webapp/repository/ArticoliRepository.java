@@ -12,6 +12,10 @@ import javax.sql.DataSource;
 import org.springframework.stereotype.Repository;
 
 import com.xantrix.webapp.entities.Articoli;
+import com.xantrix.webapp.entities.Barcode;
+import com.xantrix.webapp.entities.FamAssort;
+import com.xantrix.webapp.entities.Ingredienti;
+import com.xantrix.webapp.entities.Iva;
 
 @Repository
 public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepositoryWrite<Articoli> {
@@ -31,22 +35,52 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 
 			Connection conn = ds.getConnection();
 
-			String query = "SELECT codart, codstat, datacreazione, descrizione, idstatoart, pesonetto, pzcart, um, idfamass, idiva FROM articoli";
+			String query = "SELECT a.codart AS codart_art, a.codstat, a.datacreazione, a.descrizione AS descr_art, "
+		             + "a.idstatoart, a.pesonetto, a.pzcart, a.um, a.idfamass, a.idiva, b.codart AS codart_bar, b.barcode AS barcode_b, "
+		             + "f.descrizione AS descr_fam, iva.descrizione AS descr_iva, aliquota, b.idtipoart as bar_idtipoart, i.codart AS codart_ingr, "
+		             + "i.info AS info_ingr "
+		             + "FROM articoli a "
+		             + "INNER JOIN famassort f ON a.idfamass = f.id "
+		             + "INNER JOIN iva on iva.idiva = a.idiva "
+					 + "RIGHT JOIN barcode b ON b.codart = a.codart "
+					 + "RIGHT JOIN ingredienti i ON i.articolo_codart = a.codart ";
+			
 			PreparedStatement ps = conn.prepareStatement(query);
 
 			ResultSet rs = ps.executeQuery();
 
 			while (rs.next()) {
 				Articoli articoli = new Articoli();
-				articoli.setCodArt(rs.getString("codart"));
+				articoli.setCodArt(rs.getString("codart_art"));
 				articoli.setCodStat(rs.getString("codstat"));
 				articoli.setDataCreaz(rs.getDate("datacreazione"));
-				articoli.setDescrizione(rs.getString("descrizione"));
+				articoli.setDescrizione(rs.getString("descr_art"));
 				articoli.setIdStatoArt(rs.getString("idstatoart"));
 				articoli.setPesoNetto(rs.getDouble("pesonetto"));
 				articoli.setPzCart(rs.getInt("pzcart"));
 				articoli.setUm(rs.getString("um"));
-
+				
+				FamAssort famass = new FamAssort();
+				famass.setId(rs.getString("idfamass"));
+				famass.setDescrizione(rs.getString("descr_fam"));
+				articoli.setFamAssort(famass);
+				
+				Iva iva = new Iva();
+				iva.setIdIva(rs.getString("idiva")); 
+				iva.setDescrizione(rs.getString("descr_iva"));
+				iva.setAliquota(rs.getString("aliquota"));
+				articoli.setIva(iva);
+				
+				Barcode barcode = new Barcode();
+				barcode.setBarcode(rs.getString("barcode_b"));
+				barcode.setIdTipoArt(rs.getString("bar_idtipoart"));
+				articoli.setBarcode(barcode);
+				
+				Ingredienti ingredienti = new Ingredienti();
+				ingredienti.setCodArt(rs.getString("codart_ingr"));
+				ingredienti.setInfo(rs.getString("info_ingr"));
+				articoli.getIngredienti().add(ingredienti);
+				
 				listaArticoli.add(articoli);
 
 			}

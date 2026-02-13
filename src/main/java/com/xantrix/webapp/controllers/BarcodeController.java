@@ -14,7 +14,7 @@ import lombok.extern.java.Log;
 
 @Log
 @RestController
-@RequestMapping
+@RequestMapping("api/barcode/")
 @CrossOrigin("http//:localhost:8080/")
 public class BarcodeController {
 	

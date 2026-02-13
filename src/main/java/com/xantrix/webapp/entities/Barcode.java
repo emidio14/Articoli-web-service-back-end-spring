@@ -1,5 +1,6 @@
 package com.xantrix.webapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -31,6 +32,7 @@ public class Barcode
 	@OneToOne
 	@JoinColumn(name = "codart", referencedColumnName = "codart")
 	@JsonIgnoreProperties("barcode")
+	@JsonIgnore
 	private Articoli articolo;
 
 }

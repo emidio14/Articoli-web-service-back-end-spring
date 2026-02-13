@@ -3,6 +3,7 @@ package com.xantrix.webapp.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
@@ -33,5 +34,6 @@ public class FamAssort
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "famAssort")
 	@JsonIgnoreProperties("famAssort")
+	@JsonIgnore
 	private Set<Articoli> articoli = new HashSet<>();
 }
