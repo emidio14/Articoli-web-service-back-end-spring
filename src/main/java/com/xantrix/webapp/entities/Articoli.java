@@ -60,7 +60,7 @@ public class Articoli
 	private Set<Ingredienti> ingredienti = new HashSet<>();
 	
 	@ManyToOne
-	@JoinColumn(name = "idiva",  referencedColumnName = "idiva")
+	@JoinColumn(name = "idiva",  referencedColumnName = "idiva", nullable = false)
 	private Iva iva;
 	
 	@ManyToOne

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "BARCODE")
+@Table(name = "barcode")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,10 +22,10 @@ import lombok.Setter;
 public class Barcode 
 {
 	@Id
-	@Column(name = "BARCODE")
+	@Column(name = "barcode")
 	private String barcode;
 	
-	@Column(name = "IDTIPOART")
+	@Column(name = "idtipoart")
 	private String idTipoArt;
 	
 	@OneToOne

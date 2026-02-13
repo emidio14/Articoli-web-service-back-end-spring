@@ -1,8 +1,6 @@
 package com.xantrix.webapp.entities;
  
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,10 +22,10 @@ import lombok.Setter;
 public class Ingredienti  
 {	
 	@Id
-	@Column(name = "CODART")
+	@Column(name = "codart")
 	private String codArt;
 	
-	@Column(name = "INFO")
+	@Column(name = "info")
 	private String info;
 	
 	@ManyToOne
