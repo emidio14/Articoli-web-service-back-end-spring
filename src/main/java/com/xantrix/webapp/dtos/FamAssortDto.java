@@ -8,10 +8,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class IvaDto
+public class FamAssortDto 
 {
-	private String idIva;
+	private String id;
 	private String descrizione;
-	private String aliquota;
 	private Set<ArticoliDto> articoli = new HashSet<>();
 }

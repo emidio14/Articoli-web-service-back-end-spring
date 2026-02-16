@@ -9,4 +9,5 @@ public class IngredientiDto
 {
 	private String codArt;
 	private String info;
+	private ArticoliDto articolo;
 }
