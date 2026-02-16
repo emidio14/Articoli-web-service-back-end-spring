@@ -3,6 +3,7 @@ package com.xantrix.webapp.repository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,12 +11,11 @@ import javax.sql.DataSource;
 
 import org.springframework.stereotype.Repository;
 
-import com.xantrix.webapp.entities.Articoli;
 import com.xantrix.webapp.entities.Barcode;
-import com.xantrix.webapp.entities.Ingredienti;
+
 
 @Repository
-public class BarcodeRepository implements IRepositoryReadOnly<Ingredienti>{
+public class BarcodeRepository implements IRepositoryReadOnly<Barcode>{
 	
 	private final DataSource ds;
 	
@@ -24,7 +24,7 @@ public class BarcodeRepository implements IRepositoryReadOnly<Ingredienti>{
 	}
 
 	@Override
-	public List<Ingredienti> getAll() {
+	public List<Barcode> getAll() {
 		
 		List<Barcode> listaBarcode = new ArrayList<Barcode>();
 		
@@ -40,18 +40,21 @@ public class BarcodeRepository implements IRepositoryReadOnly<Ingredienti>{
 				Barcode bc = new Barcode();
 				bc.setBarcode(rs.getString("barcode"));
 				bc.setIdTipoArt(rs.getString("idtipoart"));
-				//TODO: Aggiungere campo dell'entity che è un oggetto
+				listaBarcode.add(bc);
 			}
 			
-		}catch() {
+			conn.close();
+			
+		}catch (SQLException e) {
+			System.out.println(e.getMessage());
 			
 		}
 		
-		return null;
+		return listaBarcode;
 	}
 
 	@Override
-	public Articoli getById(String id) {
+	public Barcode getById(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}	

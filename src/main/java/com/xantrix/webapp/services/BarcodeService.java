@@ -1,33 +1,25 @@
 package com.xantrix.webapp.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.xantrix.webapp.entities.Barcode;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.xantrix.webapp.entities.Barcode;
+import com.xantrix.webapp.repository.BarcodeRepository;
+
+@Service
 public class BarcodeService {
 	
-	List<Barcode> barcode = new ArrayList<Barcode>() {{
-		add(new Barcode());
-		add(new Barcode());
-	}};
+	@Autowired
+	private BarcodeRepository repository;
 	
-	public List<Barcode> getAllBarcode(){
-		return barcode;
+	
+	public List<Barcode> barcodeListaService(){
+		return repository.getAll();
 	}
 	
-	public Barcode getBarcodeById(String id) {
-		return barcode
-				.stream()
-				.filter(i -> (i.getBarcode()) == id)
-				.findFirst()
-				.orElse(null);
-	}
-	
-	public Barcode addBarcode(Barcode bar) {
-		String newCode = String.valueOf(barcode.size() + 1);
-		bar.setBarcode(newCode);
-		barcode.add(bar);
-		return bar;
+	public Barcode barDetailsService(String id) {
+		return repository.getById(id);
 	}
 }
