@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.xantrix.webapp.dtos.ArticoliDto;
 import com.xantrix.webapp.entities.Articoli;
 import com.xantrix.webapp.services.ArticoliService;
 
@@ -33,7 +34,7 @@ public class ArticoliController {
 	}
 	
 	@GetMapping
-	public List<Articoli> articoliListaService(){
+	public List<ArticoliDto> articoliListaService(){
 		return service.articoliListaService();
 	}
 	
