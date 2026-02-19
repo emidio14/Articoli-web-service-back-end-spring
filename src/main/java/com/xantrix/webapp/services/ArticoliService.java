@@ -36,9 +36,14 @@ public class ArticoliService {
 	public ArticoliDto artDetailsService(String id) {
 
 		Articoli art = repository.getById(id);
-		ArticoliDto artDto = modelMapper.map(art, ArticoliDto.class);
+		
+		if(art != null) {
+			ArticoliDto artDto = modelMapper.map(art, ArticoliDto.class);
+			
+			return artDto;
+		}
 
-		return artDto;
+		return null;
 	}
 
 	public ArticoliDto artUpdateService(ArticoliDto artDto) {
@@ -48,7 +53,6 @@ public class ArticoliService {
 		
 		if(artic) {
 			ArticoliDto articDto = modelMapper.map(artEntity, ArticoliDto.class);
-			System.out.println(articDto);
 			
 			return articDto;
 		}else {
@@ -58,11 +62,30 @@ public class ArticoliService {
 				
 	}
 
-	public boolean artDeleteService(String id) {
-		return repository.Delete(id);
+	public ArticoliDto artDeleteService(String id) {
+		
+		boolean valueDeleted = repository.Delete(id);
+		
+		if(valueDeleted) {
+			ArticoliDto artDto = new ArticoliDto();
+			artDto.setCodArt(id);
+			return artDto;
+		}
+		return null;
 	}
 
-	public boolean artInsertService(Articoli art) {
-		return repository.Insert(art);
+	public ArticoliDto artInsertService(Articoli artDto) {
+		
+		Articoli artEntity = modelMapper.map(artDto, Articoli.class);
+		boolean artic = repository.Insert(artEntity);
+		
+		if(artic) {
+			ArticoliDto articDto = modelMapper.map(artEntity, ArticoliDto.class);
+			
+			return articDto;
+		}else {
+			
+			return null;
+		}
 	}
 }
