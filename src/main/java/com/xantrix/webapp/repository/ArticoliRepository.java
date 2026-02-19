@@ -256,10 +256,7 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 	            ps.setDate(2, art.getDataCreaz());
 	            ps.setString(3, art.getDescrizione());
 	            ps.setString(4, art.getIdStatoArt());
-	            ps.setDouble(5, art.getPesoNetto());
-	            
-	            System.out.println("PesoNetto: " + art.getPesoNetto());
-	            
+	            ps.setDouble(5, art.getPesoNetto());            
 	            ps.setInt(6, art.getPzCart());
 	            ps.setString(7, art.getUm());
 	            ps.setString(8, (art.getFamAssort() != null) ? art.getFamAssort().getId() : null);

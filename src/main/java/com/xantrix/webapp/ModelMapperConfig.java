@@ -1,7 +1,5 @@
 package com.xantrix.webapp;
 
-import java.util.function.Function;
-
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +27,10 @@ public class ModelMapperConfig {
 			.setMatchingStrategy(MatchingStrategies.LOOSE)
 			.setSkipNullEnabled(true);
 		
-		modelMapper.createTypeMap(Articoli.class, ArticoliDto.class);
+		modelMapper.createTypeMap(Articoli.class, ArticoliDto.class)
+			.addMappings( mapper -> {
+				mapper.map(src -> src.getBarcode().getBarcode(), ArticoliDto::setBarcode);
+			});
 		modelMapper.createTypeMap(Barcode.class, BarcodeDto.class);
 		modelMapper.createTypeMap(FamAssort.class, FamAssortDto.class);
 		modelMapper.createTypeMap(Ingredienti.class, IngredientiDto.class);

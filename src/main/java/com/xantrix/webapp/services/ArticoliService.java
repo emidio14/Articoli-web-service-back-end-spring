@@ -22,26 +22,40 @@ public class ArticoliService {
 	private ModelMapper modelMapper;
 
 	public List<ArticoliDto> articoliListaService() {
-		
-			List<Articoli> listArticoliEntity = repository.getAll();
-			List<ArticoliDto> listaArticoliDto = new ArrayList<ArticoliDto>();
-			
-			List<ArticoliDto> mapping = listArticoliEntity
-				.stream()
-				.map(element -> modelMapper.map(element, ArticoliDto.class))
-				.collect(Collectors.toList());
-			listaArticoliDto.addAll(mapping);
-			
-			System.out.println(listaArticoliDto);
+
+		List<Articoli> listArticoliEntity = repository.getAll();
+		List<ArticoliDto> listaArticoliDto = new ArrayList<ArticoliDto>();
+
+		List<ArticoliDto> mapping = listArticoliEntity.stream()
+				.map(element -> modelMapper.map(element, ArticoliDto.class)).collect(Collectors.toList());
+		listaArticoliDto.addAll(mapping);
+
 		return listaArticoliDto;
 	}
 
-	public Articoli artDetailsService(String id) {
-		return repository.getById(id);
+	public ArticoliDto artDetailsService(String id) {
+
+		Articoli art = repository.getById(id);
+		ArticoliDto artDto = modelMapper.map(art, ArticoliDto.class);
+
+		return artDto;
 	}
 
-	public boolean artUpdateService(Articoli art) {
-		return repository.Update(art);
+	public ArticoliDto artUpdateService(ArticoliDto artDto) {
+		
+		Articoli artEntity = modelMapper.map(artDto, Articoli.class);
+		boolean artic = repository.Update(artEntity);
+		
+		if(artic) {
+			ArticoliDto articDto = modelMapper.map(artEntity, ArticoliDto.class);
+			System.out.println(articDto);
+			
+			return articDto;
+		}else {
+			
+			return null;
+		}
+				
 	}
 
 	public boolean artDeleteService(String id) {

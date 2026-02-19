@@ -40,7 +40,7 @@ public class ArticoliController {
 	
 	@GetMapping("{id}")
 	public ResponseEntity artDetailsService(@PathVariable String id) {
-		Articoli art = service.artDetailsService(id);
+		ArticoliDto art = service.artDetailsService(id);
 		
 		if(art == null)
 			return ResponseEntity.notFound().build();
@@ -72,12 +72,13 @@ public class ArticoliController {
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity artUpdate(@PathVariable String id, @RequestBody Articoli art) {
+	public ResponseEntity artUpdate(@PathVariable String id, @RequestBody ArticoliDto art) {
 		
-		if(id != "0")
+		if(!id.equals("0"))
 			art.setCodArt(id);
-		
-			if(service.artUpdateService(art))
+		ArticoliDto artDto = service.artUpdateService(art);
+
+			if(artDto != null)
 				return ResponseEntity.ok().build();
 			
 		return ResponseEntity.badRequest().build();
