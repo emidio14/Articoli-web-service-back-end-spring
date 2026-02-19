@@ -62,11 +62,12 @@ public class ArticoliController {
 	@DeleteMapping("{id}")
 	public ResponseEntity artDelete(@PathVariable String id) {
 		
-		boolean deleteResult = service.artDeleteService(id);
 		
-		if(deleteResult)
+		ArticoliDto deleteResult = service.artDeleteService(id);
+		
+		if(deleteResult != null)
 			return ResponseEntity.ok().build();
-		
+		System.out.println(deleteResult);
 		return ResponseEntity.notFound().build();
 		
 	}
@@ -83,7 +84,6 @@ public class ArticoliController {
 			
 		return ResponseEntity.badRequest().build();
 		
-	}
-	
+	}	
 	
 }

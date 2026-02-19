@@ -58,8 +58,16 @@ public class ArticoliService {
 				
 	}
 
-	public boolean artDeleteService(String id) {
-		return repository.Delete(id);
+	public ArticoliDto artDeleteService(String id) {
+		
+		boolean valueDeleted = repository.Delete(id);
+		
+		if(valueDeleted) {
+			ArticoliDto artDto = new ArticoliDto();
+			artDto.setCodArt(id);
+			return artDto;
+		}
+		return null;
 	}
 
 	public boolean artInsertService(Articoli art) {
