@@ -9,8 +9,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class FamAssortDto 
-{
+public class FamAssortDto {
 	private String id;
 	private String descrizione;
 }

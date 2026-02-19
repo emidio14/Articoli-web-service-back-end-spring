@@ -51,7 +51,7 @@ public class ArticoliController {
 	@PostMapping
 	public ResponseEntity artInsert(@RequestBody Articoli art) {
 		
-		boolean insertResult = service.artInsertService(art);
+		boolean insertResult = service.artInsertService(art) != null;
 		
 		if(insertResult)
 			return ResponseEntity.ok().build();
