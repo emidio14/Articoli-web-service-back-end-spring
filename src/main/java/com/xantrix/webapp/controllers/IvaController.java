@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.xantrix.webapp.entities.Iva;
+import com.xantrix.webapp.dtos.IvaDto;
 import com.xantrix.webapp.services.IvaService;
 
 import lombok.extern.java.Log;
@@ -29,13 +29,13 @@ public class IvaController {
 	}
 
 	@GetMapping
-	public List<Iva> ivaListaService() {
+	public List<IvaDto> ivaListaService() {
 		return service.ivaListaService();
 	}
 
 	@GetMapping("{id}")
 	public ResponseEntity ivaListaService(@PathVariable String id) {
-		Iva iva = service.ivaDetailsService(id);
+		IvaDto iva = service.ivaDetailsService(id);
 
 		if (iva == null)
 			return ResponseEntity.notFound().build();
