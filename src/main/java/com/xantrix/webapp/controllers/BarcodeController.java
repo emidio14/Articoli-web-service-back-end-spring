@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xantrix.webapp.dtos.BarcodeDto;
-import com.xantrix.webapp.entities.Barcode;
 import com.xantrix.webapp.services.BarcodeService;
 
 import lombok.extern.java.Log;
@@ -36,7 +35,7 @@ public class BarcodeController {
 	
 	@GetMapping("{id}")
 	public ResponseEntity barcodeListaService(@PathVariable String id){
-		Barcode barcode = service.barDetailsService(id);
+		BarcodeDto barcode = service.barDetailsService(id);
 		
 		if(barcode == null)
 			return ResponseEntity.notFound().build();
