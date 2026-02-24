@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.xantrix.webapp.dtos.FamAssortDto;
 import com.xantrix.webapp.entities.FamAssort;
 import com.xantrix.webapp.services.FamAssortService;
 
@@ -29,13 +30,13 @@ public class FamAssortController {
 	}
 
 	@GetMapping
-	public List<FamAssort> famAssortListaService() {
+	public List<FamAssortDto> famAssortListaService() {
 		return service.famAssortListaService();
 	}
 
 	@GetMapping("{id}")
 	public ResponseEntity famAssortListaService(@PathVariable String id) {
-		FamAssort famAss = service.famAssortDetailsService(id);
+		FamAssortDto famAss = service.famAssortDetailsService(id);
 
 		if (famAss == null)
 			return ResponseEntity.notFound().build();
