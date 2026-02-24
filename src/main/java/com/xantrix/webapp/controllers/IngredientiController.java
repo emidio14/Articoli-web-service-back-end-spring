@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.xantrix.webapp.dtos.IngredientiDto;
 import com.xantrix.webapp.entities.Ingredienti;
 import com.xantrix.webapp.services.IngredientiService;
 
@@ -29,13 +30,13 @@ public class IngredientiController {
 	}
 
 	@GetMapping
-	public List<Ingredienti> ingredientiListaService() {
+	public List<IngredientiDto> ingredientiListaService() {
 		return service.ingredientiListaService();
 	}
 
 	@GetMapping("{id}")
 	public ResponseEntity ivaListaService(@PathVariable String id) {
-		Ingredienti ingrediente = service.ingredientiDetailsService(id);
+		IngredientiDto ingrediente = service.ingredientiDetailsService(id);
 
 		if (ingrediente == null)
 			return ResponseEntity.notFound().build();
