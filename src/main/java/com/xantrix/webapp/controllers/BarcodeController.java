@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.xantrix.webapp.dtos.BarcodeDto;
 import com.xantrix.webapp.entities.Barcode;
 import com.xantrix.webapp.services.BarcodeService;
 
@@ -29,7 +30,7 @@ public class BarcodeController {
 	}
 	
 	@GetMapping
-	public List<Barcode> barcodeListaService(){
+	public List<BarcodeDto> barcodeListaService(){
 		return service.barcodeListaService();
 	}
 	
