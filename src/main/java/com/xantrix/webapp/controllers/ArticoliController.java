@@ -23,7 +23,7 @@ import lombok.extern.java.Log;
 @Log
 @RestController
 @RequestMapping("api/articoli/")
-@CrossOrigin("http://localhost:8080/")
+@CrossOrigin("http://localhost:4200/")
 public class ArticoliController {
 	
 	@Autowired
