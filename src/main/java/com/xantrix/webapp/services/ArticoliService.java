@@ -74,7 +74,7 @@ public class ArticoliService {
 		return null;
 	}
 
-	public ArticoliDto artInsertService(Articoli artDto) {
+	public ArticoliDto artInsertService(ArticoliDto artDto) {
 		
 		Articoli artEntity = modelMapper.map(artDto, Articoli.class);
 		boolean artic = repository.Insert(artEntity);
