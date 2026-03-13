@@ -56,8 +56,8 @@ public class Articoli
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
 	private Barcode barcode;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
-	private Set<Ingredienti> ingredienti = new HashSet<>();
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "articolo", orphanRemoval = true)
+	private Ingredienti ingredienti;
 	
 	@ManyToOne
 	@JoinColumn(name = "idiva", referencedColumnName = "idiva", nullable = false)

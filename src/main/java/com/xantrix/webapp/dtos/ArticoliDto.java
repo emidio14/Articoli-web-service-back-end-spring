@@ -1,8 +1,6 @@
 package com.xantrix.webapp.dtos;
 
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +21,8 @@ public class ArticoliDto
 	private double pesoNetto = 0;
 	private String idStatoArt;
 	private Date dataCreaz;
-	private String barcode; //L'entità Articoli ha Barcode come tipo
-	private Set<IngredientiDto> ingredienti = new HashSet<>();
+	private String barcode;
+	private IngredientiDto ingredienti;
 	private IvaDto iva;
 	private FamAssortDto famAssort;
 	

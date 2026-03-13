@@ -79,7 +79,7 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 				Ingredienti ingredienti = new Ingredienti();
 				ingredienti.setCodArt(rs.getString("codart_ingr"));
 				ingredienti.setInfo(rs.getString("info_ingr"));
-				articoli.getIngredienti().add(ingredienti);
+				articoli.setIngredienti(ingredienti);
 				
 				listaArticoli.add(articoli);
 
@@ -148,7 +148,7 @@ public class ArticoliRepository implements IRepositoryReadOnly<Articoli>, IRepos
 				Ingredienti ingredienti = new Ingredienti();
 				ingredienti.setCodArt(rs.getString("codart_ingr"));
 				ingredienti.setInfo(rs.getString("info_ingr"));
-				art.getIngredienti().add(ingredienti);
+				art.setIngredienti(ingredienti);
 
 			}
 

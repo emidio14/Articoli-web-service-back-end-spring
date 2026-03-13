@@ -21,23 +21,17 @@ public class ModelMapperConfig {
 	
 	@Bean
 	ModelMapper modelMapper() {
-		ModelMapper modelMapper = new ModelMapper();
-		
-		modelMapper.getConfiguration()
-			.setMatchingStrategy(MatchingStrategies.LOOSE)
-			.setSkipNullEnabled(true);
-		
-		modelMapper.createTypeMap(Articoli.class, ArticoliDto.class)
-			.addMappings( mapper -> {
-				mapper.map(src -> src.getBarcode().getBarcode(), ArticoliDto::setBarcode);
-			});
-		modelMapper.createTypeMap(Barcode.class, BarcodeDto.class);
-		modelMapper.createTypeMap(FamAssort.class, FamAssortDto.class);
-		modelMapper.createTypeMap(Ingredienti.class, IngredientiDto.class);
-		modelMapper.createTypeMap(Iva.class, IvaDto.class);
-		
-		return modelMapper;
 
+	    ModelMapper modelMapper = new ModelMapper();
+
+	    modelMapper.getConfiguration()
+	        .setMatchingStrategy(MatchingStrategies.LOOSE);
+	    
+	    modelMapper.createTypeMap(Barcode.class, BarcodeDto.class);
+	    modelMapper.createTypeMap(Iva.class, IvaDto.class);
+	    modelMapper.createTypeMap(FamAssort.class, FamAssortDto.class);
+	    modelMapper.createTypeMap(Ingredienti.class, IngredientiDto.class);
+
+	    return modelMapper;
 	}
-	
 }
